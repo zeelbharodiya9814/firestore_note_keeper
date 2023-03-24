@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "423947959750",
+    "project_id": "flutter-notekeeper-9814",
+    "storage_bucket": "flutter-notekeeper-9814.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:423947959750:android:ecf5c322c8d6334f10c6c7",
+        "android_client_info": {
+          "package_name": "com.nk7621.note_keeper_firestore_database"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "423947959750-4s3gc6duqubn7sh1hft91u9r24670jsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSUqa0jwHuJguYrzHUNb353za-5cS9tHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423947959750-4s3gc6duqubn7sh1hft91u9r24670jsf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
