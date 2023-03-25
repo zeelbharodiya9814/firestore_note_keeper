@@ -5,6 +5,7 @@ import 'package:note_keeper_firestore_database/views/screens/homepage.dart';
 import 'package:note_keeper_firestore_database/views/screens/loginpage.dart';
 import 'package:note_keeper_firestore_database/views/screens/notes_add_page.dart';
 import 'package:note_keeper_firestore_database/views/screens/notes_open_page.dart';
+import 'package:note_keeper_firestore_database/views/screens/notes_update_page.dart';
 import 'package:note_keeper_firestore_database/views/screens/signin_page.dart';
 import 'package:note_keeper_firestore_database/views/screens/signup_page.dart';
 import 'package:note_keeper_firestore_database/views/screens/splash_screen.dart';
@@ -33,6 +34,7 @@ void main() async {
         'Signin_page' : (context) => Signin_page(),
         'Notes_Open_page' : (context) => Notes_Open_page(),
         'Add_note' : (context) => Add_note(),
+        'Update_note' : (context) => Update_note(),
       },
     ),
   );

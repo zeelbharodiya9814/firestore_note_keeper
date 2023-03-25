@@ -209,7 +209,7 @@ class _Home_pageState extends State<Home_page> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Text("${date}",style: TextStyle(fontWeight: FontWeight.bold),),
+                                    child: Text("${allDocs[i].data()['date']}",style: TextStyle(fontWeight: FontWeight.bold),),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 35.0, left: 10, right: 10, bottom: 10),
@@ -230,8 +230,6 @@ class _Home_pageState extends State<Home_page> {
                                                 child: GestureDetector(
                                                   onTap: () {
                                                     setState(() {
-
-                                                      Navigator.of(context).pop();
 
                                                       UpdateandValidate(allId: allDocs[i].id);
                                                       titlecontroller.text = allDocs[i].data()['title'];
@@ -685,168 +683,185 @@ class _Home_pageState extends State<Home_page> {
   //     ),
   //   );
   // }
-
+  //
   UpdateandValidate({required allId}) {
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (all) => AlertDialog(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         content: Form(
           key: updateformKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Stack(
-              //   alignment: Alignment.center,
-              //   children: [
-              //     CircleAvatar(
-              //       radius: 40,
-              //       backgroundImage: (image != null)
-              //           ? MemoryImage(image as Uint8List)
-              //           : null,
-              //       backgroundColor: Colors.grey[300],
-              //     ),
-              //     IconButton(onPressed: () {
-              //       setState(() async {
-              //         final ImagePicker pick = ImagePicker();
-              //
-              //         XFile? xfile = await pick.pickImage(source: ImageSource.camera,imageQuality: 50);
-              //         image = await xfile!.readAsBytes();
-              //       });
-              //     }, icon: Icon(Icons.add_a_photo_outlined)),
-              //   ],
-              // ),
-              SizedBox(
-                height: 15,
-              ),
-              Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  controller: titlecontroller,
-                  textInputAction: TextInputAction.next,
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "Enter title...";
-                    }
-                  },
-                  onSaved: (val) {
-                    setState(() {
-                      title = val;
-                    });
-                  },
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.person,
-                        color: Colors.black,
-                      ),
-                      hintText: "title",
-                      hintStyle: TextStyle(color: Colors.grey[400]),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide.none,
-                      )),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Stack(
+                //   alignment: Alignment.center,
+                //   children: [
+                //     CircleAvatar(
+                //       radius: 40,
+                //       backgroundImage: (image != null)
+                //           ? MemoryImage(image as Uint8List)
+                //           : null,
+                //       backgroundColor: Colors.grey[300],
+                //     ),
+                //     IconButton(onPressed: () {
+                //       setState(() async {
+                //         final ImagePicker pick = ImagePicker();
+                //
+                //         XFile? xfile = await pick.pickImage(source: ImageSource.camera,imageQuality: 50);
+                //         image = await xfile!.readAsBytes();
+                //       });
+                //     }, icon: Icon(Icons.add_a_photo_outlined)),
+                //   ],
+                // ),
+                SizedBox(
+                  height: 15,
                 ),
-              ),
-              Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  controller: notecontroller,
-                  textInputAction: TextInputAction.next,
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "Enter note...";
-                    }
-                  },
-                  onSaved: (val) {
-                    setState(() {
-                      note = val;
-                    });
-                    print(note);
-                  },
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.subject,
-                        color: Colors.black,
-                      ),
-                      hintText: "note",
-                      hintStyle: TextStyle(color: Colors.grey[400]),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide.none,
-                      )),
+                Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  child: TextFormField(
+                    controller: titlecontroller,
+                    textInputAction: TextInputAction.next,
+                    style: TextStyle(color: Colors.white),
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return "Enter title...";
+                      }
+                    },
+                    onSaved: (val) {
+                      setState(() {
+                        title = val;
+                      });
+                    },
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        hintText: "Title",
+                        hintStyle: TextStyle(color: Colors.grey[400],fontSize: 21),
+                        filled: true,
+                        fillColor: Colors.black,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide.none,
+                        )),
+                  ),
                 ),
-              ),
-            ],
+                Card(
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  child: TextFormField(
+                    controller: notecontroller,
+                    maxLines: 10,
+                    textInputAction: TextInputAction.next,
+                    style: TextStyle(color: Colors.white),
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return "Enter note...";
+                      }
+                    },
+                    onSaved: (val) {
+                      setState(() {
+                        note = val;
+                      });
+                      print(note);
+                    },
+                    decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        hintText: "Notes",
+                        hintStyle: TextStyle(color: Colors.grey[400],fontSize: 21),
+                        filled: true,
+                        fillColor: Colors.black,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide.none,
+                        )),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              OutlinedButton(
-                  onPressed: () {
+          Container(
+            height: 30,
+            color: Colors.black,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                    onPressed: () {
+                      titlecontroller.clear();
+                      notecontroller.clear();
+
+                      setState(() {
+                        title = null;
+                        note = null;
+                      });
+
+                      Navigator.pop(context);
+                    },
+                    child: Text("Cancel")),
+                SizedBox(
+                  width: 20,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (updateformKey.currentState!.validate()) {
+                      updateformKey.currentState!.save();
+
+                      await FirestoreDBHelper.firestoreDBHelper
+                          .update(id: allId, title: title!, note: note!);
+                      Navigator.of(context).pop();
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Record updated successfully..."),
+                          backgroundColor: Colors.green,
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                      print("validate successfully...");
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("Record updation failed"),
+                          backgroundColor: Colors.red,
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                    }
+
                     titlecontroller.clear();
                     notecontroller.clear();
 
                     setState(() {
                       title = null;
                       note = null;
+                      // image = null;
                     });
-
-                    Navigator.pop(context);
                   },
-                  child: Text("Cancel")),
-              SizedBox(
-                width: 20,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (updateformKey.currentState!.validate()) {
-                    updateformKey.currentState!.save();
-
-                    await FirestoreDBHelper.firestoreDBHelper
-                        .update(id: allId, title: title!, note: note!);
-                    Navigator.of(context).pop();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Record updated successfully..."),
-                        backgroundColor: Colors.green,
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                    print("validate successfully...");
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Record updation failed"),
-                        backgroundColor: Colors.red,
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  }
-
-                  titlecontroller.clear();
-                  notecontroller.clear();
-
-                  setState(() {
-                    title = null;
-                    note = null;
-                    // image = null;
-                  });
-                },
-                child: Text("Update"),
-              ),
-            ],
+                  child: Text("Update"),
+                ),
+              ],
+            ),
           )
         ],
       ),

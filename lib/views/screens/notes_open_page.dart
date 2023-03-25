@@ -109,83 +109,83 @@ class _Notes_Open_pageState extends State<Notes_Open_page> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              top: 35.0, left: 10, right: 10, bottom: 10),
+                              top: 15, left: 10, right: 10, bottom: 15),
                           child: Text("${detail['note']}"),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 7.0, right: 2),
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                child: PopupMenuButton<int>(
-                                  itemBuilder: (context) => [
-                                    PopupMenuItem(
-                                      value: 1,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            Navigator.of(context).pop();
-
-                                            UpdateandValidate(
-                                                allId: detail['id']);
-                                            titlecontroller.text =
-                                                detail['title'];
-                                            notecontroller.text =
-                                                detail['note'];
-                                          });
-                                        },
-                                        child: Row(
-                                          children: [
-                                            Icon(Icons.edit,
-                                                color: Colors.blue[900]),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text("Edit")
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    // popupmenu item 2
-                                    PopupMenuItem(
-                                      value: 2,
-                                      child: InkWell(
-                                        onTap: () {
-                                          setState(() async {
-                                            Navigator.of(context).pop();
-
-                                            await FirestoreDBHelper
-                                                .firestoreDBHelper
-                                                .delete(id: detail['id']);
-                                          });
-                                        },
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.delete,
-                                              color: Colors.blue[900],
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text("Delete")
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                  offset: Offset(-29, 30),
-                                  color: Colors.grey[200],
-                                  elevation: 2,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.end,
+                        //   children: [
+                        //     Padding(
+                        //       padding:
+                        //           const EdgeInsets.only(bottom: 7.0, right: 2),
+                        //       child: Container(
+                        //         height: 30,
+                        //         width: 30,
+                        //         child: PopupMenuButton<int>(
+                        //           itemBuilder: (context) => [
+                        //             PopupMenuItem(
+                        //               value: 1,
+                        //               child: GestureDetector(
+                        //                 onTap: () {
+                        //                   setState(() {
+                        //                     Navigator.of(context).pop();
+                        //
+                        //                     UpdateandValidate(
+                        //                         allId: detail['id']);
+                        //                     titlecontroller.text =
+                        //                         detail['title'];
+                        //                     notecontroller.text =
+                        //                         detail['note'];
+                        //                   });
+                        //                 },
+                        //                 child: Row(
+                        //                   children: [
+                        //                     Icon(Icons.edit,
+                        //                         color: Colors.blue[900]),
+                        //                     SizedBox(
+                        //                       width: 10,
+                        //                     ),
+                        //                     Text("Edit")
+                        //                   ],
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             // popupmenu item 2
+                        //             PopupMenuItem(
+                        //               value: 2,
+                        //               child: InkWell(
+                        //                 onTap: () {
+                        //                   setState(() async {
+                        //                     Navigator.of(context).pop();
+                        //
+                        //                     await FirestoreDBHelper
+                        //                         .firestoreDBHelper
+                        //                         .delete(id: detail['id']);
+                        //                   });
+                        //                 },
+                        //                 child: Row(
+                        //                   children: [
+                        //                     Icon(
+                        //                       Icons.delete,
+                        //                       color: Colors.blue[900],
+                        //                     ),
+                        //                     SizedBox(
+                        //                       width: 10,
+                        //                     ),
+                        //                     Text("Delete")
+                        //                   ],
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ],
+                        //           offset: Offset(-29, 30),
+                        //           color: Colors.grey[200],
+                        //           elevation: 2,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                     decoration: BoxDecoration(
@@ -204,171 +204,171 @@ class _Notes_Open_pageState extends State<Notes_Open_page> {
     );
   }
 
-  UpdateandValidate({required allId}) {
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (all) => AlertDialog(
-        backgroundColor: Colors.white,
-        content: Form(
-          key: updateformKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Stack(
-              //   alignment: Alignment.center,
-              //   children: [
-              //     CircleAvatar(
-              //       radius: 40,
-              //       backgroundImage: (image != null)
-              //           ? MemoryImage(image as Uint8List)
-              //           : null,
-              //       backgroundColor: Colors.grey[300],
-              //     ),
-              //     IconButton(onPressed: () {
-              //       setState(() async {
-              //         final ImagePicker pick = ImagePicker();
-              //
-              //         XFile? xfile = await pick.pickImage(source: ImageSource.camera,imageQuality: 50);
-              //         image = await xfile!.readAsBytes();
-              //       });
-              //     }, icon: Icon(Icons.add_a_photo_outlined)),
-              //   ],
-              // ),
-              SizedBox(
-                height: 15,
-              ),
-              Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  controller: titlecontroller,
-                  textInputAction: TextInputAction.next,
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "Enter title...";
-                    }
-                  },
-                  onSaved: (val) {
-                    setState(() {
-                      title = val;
-                    });
-                  },
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.person,
-                        color: Colors.black,
-                      ),
-                      hintText: "title",
-                      hintStyle: TextStyle(color: Colors.grey[400]),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide.none,
-                      )),
-                ),
-              ),
-              Card(
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextFormField(
-                  maxLines: 3,
-                  controller: notecontroller,
-                  textInputAction: TextInputAction.next,
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "Enter note...";
-                    }
-                  },
-                  onSaved: (val) {
-                    setState(() {
-                      note = val;
-                    });
-                    print(note);
-                  },
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.subject,
-                        color: Colors.black,
-                      ),
-                      hintText: "note",
-                      hintStyle: TextStyle(color: Colors.grey[400]),
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide.none,
-                      )),
-                ),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              OutlinedButton(
-                  onPressed: () {
-                    titlecontroller.clear();
-                    notecontroller.clear();
-
-                    setState(() {
-                      title = null;
-                      note = null;
-                    });
-
-                    Navigator.pop(context);
-                  },
-                  child: Text("Cancel")),
-              SizedBox(
-                width: 20,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (updateformKey.currentState!.validate()) {
-                    updateformKey.currentState!.save();
-
-                    await FirestoreDBHelper.firestoreDBHelper
-                        .update(id: allId, title: title!, note: note!);
-                    Navigator.of(context).pop();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Record updated successfully..."),
-                        backgroundColor: Colors.green,
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                    print("validate successfully...");
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Record updation failed"),
-                        backgroundColor: Colors.red,
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  }
-
-                  titlecontroller.clear();
-                  notecontroller.clear();
-
-                  setState(() {
-                    title = null;
-                    note = null;
-                    // image = null;
-                  });
-                },
-                child: Text("Update"),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
+  // UpdateandValidate({required allId}) {
+  //   showDialog(
+  //     barrierDismissible: false,
+  //     context: context,
+  //     builder: (all) => AlertDialog(
+  //       backgroundColor: Colors.white,
+  //       content: Form(
+  //         key: updateformKey,
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             Stack(
+  //               alignment: Alignment.center,
+  //               children: [
+  //                 CircleAvatar(
+  //                   radius: 40,
+  //                   backgroundImage: (image != null)
+  //                       ? MemoryImage(image as Uint8List)
+  //                       : null,
+  //                   backgroundColor: Colors.grey[300],
+  //                 ),
+  //                 IconButton(onPressed: () {
+  //                   setState(() async {
+  //                     final ImagePicker pick = ImagePicker();
+  //
+  //                     XFile? xfile = await pick.pickImage(source: ImageSource.camera,imageQuality: 50);
+  //                     image = await xfile!.readAsBytes();
+  //                   });
+  //                 }, icon: Icon(Icons.add_a_photo_outlined)),
+  //               ],
+  //             ),
+  //             SizedBox(
+  //               height: 15,
+  //             ),
+  //             Card(
+  //               elevation: 5,
+  //               shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(20)),
+  //               child: TextFormField(
+  //                 controller: titlecontroller,
+  //                 textInputAction: TextInputAction.next,
+  //                 validator: (val) {
+  //                   if (val!.isEmpty) {
+  //                     return "Enter title...";
+  //                   }
+  //                 },
+  //                 onSaved: (val) {
+  //                   setState(() {
+  //                     title = val;
+  //                   });
+  //                 },
+  //                 decoration: InputDecoration(
+  //                     prefixIcon: Icon(
+  //                       Icons.person,
+  //                       color: Colors.black,
+  //                     ),
+  //                     hintText: "title",
+  //                     hintStyle: TextStyle(color: Colors.grey[400]),
+  //                     filled: true,
+  //                     fillColor: Colors.white,
+  //                     border: OutlineInputBorder(
+  //                       borderRadius: BorderRadius.circular(20),
+  //                       borderSide: BorderSide.none,
+  //                     )),
+  //               ),
+  //             ),
+  //             Card(
+  //               elevation: 5,
+  //               shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(20)),
+  //               child: TextFormField(
+  //                 maxLines: 3,
+  //                 controller: notecontroller,
+  //                 textInputAction: TextInputAction.next,
+  //                 validator: (val) {
+  //                   if (val!.isEmpty) {
+  //                     return "Enter note...";
+  //                   }
+  //                 },
+  //                 onSaved: (val) {
+  //                   setState(() {
+  //                     note = val;
+  //                   });
+  //                   print(note);
+  //                 },
+  //                 decoration: InputDecoration(
+  //                     prefixIcon: Icon(
+  //                       Icons.subject,
+  //                       color: Colors.black,
+  //                     ),
+  //                     hintText: "note",
+  //                     hintStyle: TextStyle(color: Colors.grey[400]),
+  //                     filled: true,
+  //                     fillColor: Colors.white,
+  //                     border: OutlineInputBorder(
+  //                       borderRadius: BorderRadius.circular(20),
+  //                       borderSide: BorderSide.none,
+  //                     )),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //       actions: [
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             OutlinedButton(
+  //                 onPressed: () {
+  //                   titlecontroller.clear();
+  //                   notecontroller.clear();
+  //
+  //                   setState(() {
+  //                     title = null;
+  //                     note = null;
+  //                   });
+  //
+  //                   Navigator.pop(context);
+  //                 },
+  //                 child: Text("Cancel")),
+  //             SizedBox(
+  //               width: 20,
+  //             ),
+  //             ElevatedButton(
+  //               onPressed: () async {
+  //                 if (updateformKey.currentState!.validate()) {
+  //                   updateformKey.currentState!.save();
+  //
+  //                   await FirestoreDBHelper.firestoreDBHelper
+  //                       .update(id: allId, title: title!, note: note!);
+  //                   Navigator.of(context).pop();
+  //
+  //                   ScaffoldMessenger.of(context).showSnackBar(
+  //                     SnackBar(
+  //                       content: Text("Record updated successfully..."),
+  //                       backgroundColor: Colors.green,
+  //                       behavior: SnackBarBehavior.floating,
+  //                     ),
+  //                   );
+  //                   print("validate successfully...");
+  //                 } else {
+  //                   ScaffoldMessenger.of(context).showSnackBar(
+  //                     SnackBar(
+  //                       content: Text("Record updation failed"),
+  //                       backgroundColor: Colors.red,
+  //                       behavior: SnackBarBehavior.floating,
+  //                     ),
+  //                   );
+  //                 }
+  //
+  //                 titlecontroller.clear();
+  //                 notecontroller.clear();
+  //
+  //                 setState(() {
+  //                   title = null;
+  //                   note = null;
+  //                   // image = null;
+  //                 });
+  //               },
+  //               child: Text("Update"),
+  //             ),
+  //           ],
+  //         )
+  //       ],
+  //     ),
+  //   );
+  // }
 }
