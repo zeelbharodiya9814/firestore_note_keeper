@@ -9,6 +9,7 @@ class Splash_screen extends StatefulWidget {
 }
 
 class _Splash_screenState extends State<Splash_screen> {
+
   late  SharedPreferences sharedPreferences;
   bool k = false;
 

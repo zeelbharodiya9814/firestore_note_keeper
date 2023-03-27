@@ -11,14 +11,15 @@ class Login_page extends StatefulWidget {
 }
 
 class _Login_pageState extends State<Login_page> {
-  String? email;
-  String? password;
 
-  GlobalKey<FormState> signUpformKey = GlobalKey<FormState>();
-  GlobalKey<FormState> signInformKey = GlobalKey<FormState>();
-
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
+  // String? email;
+  // String? password;
+  //
+  // GlobalKey<FormState> signUpformKey = GlobalKey<FormState>();
+  // GlobalKey<FormState> signInformKey = GlobalKey<FormState>();
+  //
+  // TextEditingController emailcontroller = TextEditingController();
+  // TextEditingController passwordcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
