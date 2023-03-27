@@ -1,7 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 class Splash_screen extends StatefulWidget {
   const Splash_screen({Key? key}) : super(key: key);
 
@@ -10,18 +9,25 @@ class Splash_screen extends StatefulWidget {
 }
 
 class _Splash_screenState extends State<Splash_screen> {
+  late  SharedPreferences sharedPreferences;
+  bool k = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    getper();
 
-    Duration duration = const Duration(seconds: 4);
-    Timer(duration, () {
-      Navigator.of(context).pushReplacementNamed('Login_page');
+    Timer.periodic(Duration(seconds: 4), (timer) {
+      k = sharedPreferences.getBool("isLogin") ?? false;
+      (k == false)
+          ? Navigator.of(context).pushReplacementNamed('Login_page')
+          : Navigator.of(context).pushReplacementNamed('/');
     });
   }
-
+  getper()async{
+    sharedPreferences  = await SharedPreferences.getInstance();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

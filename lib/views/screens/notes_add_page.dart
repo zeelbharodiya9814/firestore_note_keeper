@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../helper/firebase_firestore_DB_helper.dart';
 
@@ -12,6 +15,9 @@ class Add_note extends StatefulWidget {
 class _Add_noteState extends State<Add_note> {
   String? title;
   String? note;
+  Uint8List? image;
+
+  final ImagePicker pick = ImagePicker();
 
   TextEditingController titlecontroller = TextEditingController();
   TextEditingController notecontroller = TextEditingController();
@@ -28,17 +34,56 @@ class _Add_noteState extends State<Add_note> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // Stack(
+            //   alignment: Alignment.center,
+            //   children: [
+            //     StatefulBuilder(
+            //       builder: (context, setState) {
+            //         return GestureDetector(
+            //           onTap: () async {
+            //
+            //             XFile? xfile = await pick.pickImage(source: ImageSource.camera,imageQuality: 50);
+            //             image = await xfile!.readAsBytes();
+            //
+            //             setState(() {
+            //
+            //             });
+            //           },
+            //           child: CircleAvatar(
+            //             radius: 40,
+            //             backgroundImage: (image != null)
+            //                 ? MemoryImage(image as Uint8List)
+            //                 : null,
+            //             backgroundColor: Colors.grey[300],
+            //           ),
+            //         );
+            //       },
+            //     ),
+            //     Icon(Icons.add_a_photo_outlined,color: Colors.white,),
+            //   ],
+            // ),
             Form(
               key: imsertformKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
-                  Text("${date}"),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15 ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "${date}",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(
-                    height: 15,
+                    height: 5,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8.0,right: 8),
@@ -158,7 +203,7 @@ class _Add_noteState extends State<Add_note> {
             Container(
               height: 40,
               child: FloatingActionButton.extended(
-                label: Text("Insert"),
+                label: Text("Save"),
                 onPressed: () async {
                   if (imsertformKey.currentState!.validate()) {
                     imsertformKey.currentState!.save();

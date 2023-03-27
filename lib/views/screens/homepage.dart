@@ -1,8 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../helper/firebase_auth_helper.dart';
 import '../../helper/firebase_firestore_DB_helper.dart';
 
@@ -16,7 +18,7 @@ class Home_page extends StatefulWidget {
 class _Home_pageState extends State<Home_page> {
   String? title;
   String? note;
-
+ late SharedPreferences sharedPreferences;
   TextEditingController titlecontroller = TextEditingController();
   TextEditingController notecontroller = TextEditingController();
 
@@ -26,9 +28,19 @@ class _Home_pageState extends State<Home_page> {
   String date = DateTime.now().toString().split(" ")[0];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getper();
+  }
+  getper()
+  async{
+    sharedPreferences = await SharedPreferences.getInstance();
+  }
+  @override
   Widget build(BuildContext context) {
 
-    User? user = ModalRoute.of(context)!.settings.arguments as User?;
+    //User? user = ModalRoute.of(context)!.settings.arguments as User?;
 
     return Scaffold(
       appBar: AppBar(
@@ -43,8 +55,9 @@ class _Home_pageState extends State<Home_page> {
         backgroundColor: Colors.blue[200],
         actions: [
           IconButton(
-              onPressed: () {
+              onPressed: () async{
                 FirebaseAuthHelper.firebaseAuthHelper.logOut();
+                await sharedPreferences.setBool("isLogin", false);
                 Navigator.of(context).pushReplacementNamed('Login_page');
               },
               icon: Icon(
@@ -53,72 +66,72 @@ class _Home_pageState extends State<Home_page> {
               ))
         ],
       ),
-      drawer: Drawer(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Column(
-          children: [
-            Expanded(
-                flex: 3,
-                child: Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.blue[200],
-                    borderRadius:
-                        BorderRadius.only(topRight: Radius.circular(20)),
-                  ),
-                  child: CircleAvatar(
-                    radius: 70,
-                    backgroundColor: Colors.yellow[100],
-                    backgroundImage: (user!.photoURL != null)
-                        ? NetworkImage(user!.photoURL as String)
-                        : (user!.isAnonymous)
-                            ? NetworkImage(
-                                "https://o.remove.bg/downloads/d961157e-0be1-4367-a2e7-feb979a9d1e7/images-removebg-preview.png")
-                            : null,
-                  ),
-                )),
-            Expanded(
-                flex: 8,
-                child: Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 50,
-                        alignment: Alignment.centerLeft,
-                        child: (user!.isAnonymous)
-                            ? Container()
-                            : (user!.displayName == null)
-                                ? Container()
-                                : Card(
-                                   elevation: 2,
-                                  child: Container(
-                                      height: 70,
-                                    alignment: Alignment.center,
-                                    width: double.infinity,
-                                    child: Text(
-                                        "  Username : ${user!.displayName}"),
-                                  ),
-                                ), // Text("Phone : ${user!.phoneNumber}"),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: (user!.isAnonymous)
-                            ? Container()
-                            : Card(
-                              elevation: 2,
-                              child: Container(
-                                height: 45,
-                                  alignment: Alignment.center,
-                              width: double.infinity,
-                              child: Text("  Email : ${user!.email}")),
-                            ),
-                      ),
-                    ],
-                  ),
-                )),
-          ],
-        ),
-      ),
+      // drawer: Drawer(
+      //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      //   child: Column(
+      //     children: [
+      //       Expanded(
+      //           flex: 3,
+      //           child: Container(
+      //             alignment: Alignment.center,
+      //             decoration: BoxDecoration(
+      //               color: Colors.blue[200],
+      //               borderRadius:
+      //                   BorderRadius.only(topRight: Radius.circular(20)),
+      //             ),
+      //             child: CircleAvatar(
+      //               radius: 70,
+      //               backgroundColor: Colors.yellow[100],
+      //               backgroundImage: (user!.photoURL != null)
+      //                   ? NetworkImage(user!.photoURL as String)
+      //                   : (user!.isAnonymous)
+      //                       ? NetworkImage(
+      //                           "https://o.remove.bg/downloads/d961157e-0be1-4367-a2e7-feb979a9d1e7/images-removebg-preview.png")
+      //                       : null,
+      //             ),
+      //           )),
+      //       Expanded(
+      //           flex: 8,
+      //           child: Container(
+      //             child: Column(
+      //               children: [
+      //                 Container(
+      //                   height: 50,
+      //                   alignment: Alignment.centerLeft,
+      //                   child: (user!.isAnonymous)
+      //                       ? Container()
+      //                       : (user!.displayName == null)
+      //                           ? Container()
+      //                           : Card(
+      //                              elevation: 2,
+      //                             child: Container(
+      //                                 height: 70,
+      //                               alignment: Alignment.center,
+      //                               width: double.infinity,
+      //                               child: Text(
+      //                                   "  Username : ${user!.displayName}"),
+      //                             ),
+      //                           ), // Text("Phone : ${user!.phoneNumber}"),
+      //                 ),
+      //                 Container(
+      //                   alignment: Alignment.centerLeft,
+      //                   child: (user!.isAnonymous)
+      //                       ? Container()
+      //                       : Card(
+      //                         elevation: 2,
+      //                         child: Container(
+      //                           height: 45,
+      //                             alignment: Alignment.center,
+      //                         width: double.infinity,
+      //                         child: Text("  Email : ${user!.email}")),
+      //                       ),
+      //                 ),
+      //               ],
+      //             ),
+      //           )),
+      //     ],
+      //   ),
+      // ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: FirebaseFirestore.instance.collection("notes").snapshots(),
           builder: (context, snapShot) {
@@ -207,9 +220,22 @@ class _Home_pageState extends State<Home_page> {
                               alignment: Alignment.center,
                               child: Column(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text("${allDocs[i].data()['date']}",style: TextStyle(fontWeight: FontWeight.bold),),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text("${allDocs[i].data()['date']}",style: TextStyle(fontWeight: FontWeight.bold),),
+                                      ),
+
+                                      // CircleAvatar(
+                                      //   radius: 30,
+                                      //   backgroundImage: (allDocs[i].data()['image'] != null)
+                                      //       ? MemoryImage(
+                                      //       allDocs[i].data()['image'] as Uint8List)
+                                      //       : null,
+                                      //   backgroundColor: Colors.grey[300],
+                                      // ),
+                                    ],
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 35.0, left: 10, right: 10, bottom: 10),
@@ -231,9 +257,13 @@ class _Home_pageState extends State<Home_page> {
                                                   onTap: () {
                                                     setState(() {
 
-                                                      UpdateandValidate(allId: allDocs[i].id);
-                                                      titlecontroller.text = allDocs[i].data()['title'];
-                                                      notecontroller.text = allDocs[i].data()['note'];
+                                                      Map<String,dynamic> k = {
+                                                        "title": allDocs[i].data()['title'],
+                                                        "note": allDocs[i].data()['note'],
+                                                        "id":allDocs[i].id,
+                                                        "date": allDocs[i].data()['date'],
+                                                      };
+                                                      Navigator.pushNamed(context, 'Update_note',arguments: k);
 
                                                     });
                                                   },
@@ -812,8 +842,8 @@ class _Home_pageState extends State<Home_page> {
                       notecontroller.clear();
 
                       setState(() {
-                        title = null;
-                        note = null;
+                        title = "";
+                        note = "";
                       });
 
                       Navigator.pop(context);
@@ -853,8 +883,8 @@ class _Home_pageState extends State<Home_page> {
                     notecontroller.clear();
 
                     setState(() {
-                      title = null;
-                      note = null;
+                      title = "";
+                      note = "";
                       // image = null;
                     });
                   },
